@@ -81,6 +81,7 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 " Plugin code goes here.
 call plug#begin('~/.vim/plugged')
+
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -104,14 +105,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'tomasiser/vim-code-dark'
 Plug 'wakatime/vim-wakatime'
-Plug 'vim-airline/vim-airline-themes'
+
 Plug 'navarasu/onedark.nvim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-css-color'
 Plug 'plasticboy/vim-markdown'
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
 Plug 'yuezk/vim-js'
@@ -119,13 +119,22 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tribela/vim-transparent'
 Plug 'iamcco/coc-angular'
+
 Plug 'https://github.com/leafgarland/typescript-vim'
+
 Plug 'https://github.com/Quramy/vim-js-pretty-template'
 Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/editorconfig/editorconfig-vim'
 Plug 'alvan/vim-closetag'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+Plug 'itchyny/lightline.vim'
+
+" simdilik kullanmicam
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " Belki daha sonra yuklerim
 " Plug 'https://github.com/Valloric/YouCompleteMe'
@@ -273,7 +282,9 @@ if has('gui_running')
         \endif<CR>
 
 endif
-        "I added later here
+
+
+"I added later here
 set mouse=a
 set number
 set hidden
@@ -288,22 +299,23 @@ set history=5000
 set clipboard=unnamedplus
 
 
-    	" open NERDTree automatically
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree
+"otomatik acilmasi icin alttaki yorumlari uncomment yap
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * NERDTree
 
 let g:NERDTreeGitStatusWithFlags = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeGitStatusNodeColorization = 1
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden= 1
                      
-
+"au VimEnter *  NERDTree
 
 let g:NERDTreeIgnore = ['^node_modules$']
 
-" vim-prettier
-"let g:prettier#quickfix_enabled = 0
-"let g:prettier#quickfix_auto_focus = 0
+" vim-prettier ayarlari
+let g:prettier#quickfix_enabled = 1
+let g:prettier#quickfix_auto_focus = 1
+
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " run prettier on save
@@ -327,15 +339,15 @@ endfunction
 
 " Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
 " file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
+ "function! SyncTree()
+  "if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+     "NERDTreeFind
+     "wincmd p
+   "endif
+ "endfunction
 
 " Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
+"autocmd BufEnter * call SyncTree()
 
 " coc config
 let g:coc_global_extensions = [
@@ -467,14 +479,16 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>i
 
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_statusline_ontop=0
-let g:airline_theme='cool'
 
-let g:airline#extensions#tabline#formatter = 'default'
-" navegação entre os buffers
+"simdilik iptal
+"set laststatus=2
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline_statusline_ontop=0
+"let g:airline_theme='cool'
+
+"let g:airline#extensions#tabline#formatter = 'default'
+" bufferlar arasi navigasyon
 nnoremap <M-Right> :bn<cr>
 nnoremap <M-Left> :bp<cr>
 nnoremap <c-x> :bp \|bd #<cr>
@@ -482,6 +496,8 @@ nnoremap <c-x> :bp \|bd #<cr>
 let g:ale_completion_enabled = 0
 let g:ale_linters = {'python': ['flake8', 'pylint'], 'javascript': ['eslint']}
 let g:python3_host_prog = "/usr/bin/python3"
+
+
 
 
 let g:onedark_config = {
@@ -569,6 +585,11 @@ let g:closetag_enable_react_fragment = 1
 let g:closetag_enable_react_fragment = 0
 
 
+
+"lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'deus',
+      \ }
 "}}}
 
 " STATUS LINE ------------------------------------------------------------ {{{
@@ -589,3 +610,4 @@ set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 " Show the status on the second to last line.
 set laststatus=2
 " }}}
+
