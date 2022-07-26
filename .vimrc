@@ -130,6 +130,10 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 
+"REACT SNIPPETLERI
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+
 "REACT PLUGINLERI
 
 Plug 'https://github.com/Quramy/vim-js-pretty-template'
