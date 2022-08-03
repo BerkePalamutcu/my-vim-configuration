@@ -11,21 +11,21 @@ filetype plugin on
 filetype indent on
 
 " Turn syntax highlighting on.
-syntax on
+" syntax on
 
 " Add numbers to each line on the left-hand side.
  set number
 
 " Highlight cursor line underneath the cursor horizontally.
- set cursorline
+" set cursorline
 
 " Highlight cursor line underneath the cursor vertically.
- set cursorcolumn
+" set cursorcolumn
 
-" Set shift width to 4 spaces.
+" Set shift width to 2 spaces.
 " set shiftwidth=2
 
-" Set tab width to 4 columns.
+" Set tab width to 2 columns.
 " set tabstop=2
 
 " Use space characters instead of tabs.
@@ -41,7 +41,7 @@ set scrolloff=10
 set nowrap
 
 " While searching though a file incrementally highlight matching characters as you type.
-set incsearch
+" set incsearch
 
 " Ignore capital letters during search.
 set ignorecase
@@ -60,7 +60,7 @@ set showmode
 set showmatch
 
 " Use highlighting when doing a search.
-set hlsearch
+"set hlsearch
 
 " Set the commands to save in history default number is 20.
 set history=1000
@@ -76,22 +76,24 @@ set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 
-
 " PLUGINS ---------------------------------------------------------------- {{{
 
 " Plugin code goes here.
 call plug#begin('~/.vim/plugged')
 
-Plug 'dense-analysis/ale'
+
+
+
 Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', 
+"{'branch': 'release'}
 Plug 'jiangmiao/auto-pairs' 
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale' "ale checks syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
 Plug 'tsony-tsonev/nerdtree-git-plugin'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
@@ -105,39 +107,45 @@ Plug 'Yggdroot/indentLine'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'tomasiser/vim-code-dark'
 Plug 'wakatime/vim-wakatime'
-
-Plug 'navarasu/onedark.nvim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-css-color'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
-Plug 'mhinz/vim-startify'
+"Plug 'mhinz/vim-startify'
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tribela/vim-transparent'
-Plug 'iamcco/coc-angular'
+Plug 'chemzqm/vim-jsx-improve'
+Plug 'metakirby5/codi.vim'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
+
+"TYPESCRIPT PLUGINLERI
 Plug 'https://github.com/leafgarland/typescript-vim'
+
+
+"ANGULAR PLUGINLERI
+Plug 'iamcco/coc-angular'
 
 "REACT PLUGINLERI
 
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 
 "REACT SNIPPETLERI
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 
+
 "REACT PLUGINLERI
 
 Plug 'https://github.com/Quramy/vim-js-pretty-template'
-Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/editorconfig/editorconfig-vim'
@@ -147,8 +155,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'itchyny/lightline.vim'
 
 " simdilik kullanmicam
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+" Plug 'navarasu/onedark.nvim' 
 
 " Belki daha sonra yuklerim
 " Plug 'https://github.com/Valloric/YouCompleteMe'
@@ -237,7 +246,7 @@ function! ShowDocumentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -388,7 +397,11 @@ nnoremap <F3> :NERDTreeToggle<cr>
 
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
+
+
+
 " }}}
+
 
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
@@ -421,65 +434,28 @@ endif
 
 " You can split a window into sections by typing `:split` or `:vsplit`.
 " Display cursorline and cursorcolumn ONLY in active window.
-augroup cursor_off
-    autocmd!
-    autocmd WinLeave * set nocursorline nocursorcolumn
-    autocmd WinEnter * set cursorline cursorcolumn
-augroup END
+"augroup cursor_off
+    "autocmd!
+    "autocmd WinLeave * set nocursorline nocursorcolumn
+    "autocmd WinEnter * set cursorline cursorcolumn
+"augroup END
 
-" If GUI version of Vim is running set these options.
-if has('gui_running')
 
-    " Set the background tone.
-    set background=dark
 
-    " Set the color scheme.
-    colorscheme molokai
-
-    " Set a custom font you have installed on your computer.
-    " Syntax: set guifont=<font_name>\ <font_weight>\ <size>
-    set guifont=Monospace\ Regular\ 12
-
-    " Display more of the file by default.
-    " Hide the toolbar.
-    set guioptions-=T
-
-    " Hide the the left-side scroll bar.
-    set guioptions-=L
-
-    " Hide the the right-side scroll bar.
-    set guioptions-=r
-
-    " Hide the the menu bar.
-    set guioptions-=m
-
-    " Hide the the bottom scroll bar.
-    set guioptions-=b
-
-    " Map the F4 key to toggle the menu, toolbar, and scroll bar.
-    " <Bar> is the pipe character.
-    " <CR> is the enter key.
-    nnoremap <F4> :if &guioptions=~#'mTr'<Bar>
-        \set guioptions-=mTr<Bar>
-        \else<Bar>
-        \set guioptions+=mTr<Bar>
-        \endif<CR>
-
-endif
 
 
 "I added later here
-set mouse=a
+"set mouse=a
 set number
 set hidden
-set cursorline
+"set cursorline
 set expandtab
 set autoindent
 set smartindent
 set shiftwidth=2
-set tabstop=2
+set tabstop=2 "goes off
 set encoding=utf8
-set history=5000
+set history=1000
 set clipboard=unnamedplus
 
 
@@ -503,17 +479,20 @@ let g:prettier#quickfix_auto_focus = 1
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " run prettier on save
-let g:prettier#autoformat = 1
-let g:neoformat_try_node_exe = 1
+"let g:prettier#autoformat = 1 eski ayarlar
+"let g:neoformat_try_node_exe = 1 eski ayarlar
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.js Neoformat
+
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.html,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " }}}
 
 set cindent
-colorscheme codedark
 
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
@@ -521,17 +500,17 @@ function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
- "function! SyncTree()
-  "if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-     "NERDTreeFind
-     "wincmd p
-   "endif
- "endfunction
+ "Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+ "file, and we're not in vimdiff
+ function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+     NERDTreeFind
+     wincmd p
+   endif
+ endfunction
 
 " Highlight currently open buffer in NERDTree
-"autocmd BufEnter * call SyncTree()
+autocmd BufEnter * call SyncTree()
 
 " coc config
 let g:coc_global_extensions = [
@@ -597,7 +576,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <F2> <Plug>(coc-rename)
@@ -682,19 +661,6 @@ let g:ale_linters = {'python': ['flake8', 'pylint'], 'javascript': ['eslint']}
 let g:python3_host_prog = "/usr/bin/python3"
 
 
-
-
-let g:onedark_config = {
-  \ 'style': 'deep',
-  \ 'toggle_style_key': '<leader>ts',
-  \ 'ending_tildes': v:true,
-  \ 'diagnostics': {
-    \ 'darker': v:false,
-    \ 'background': v:false,
-  \ },
-\ }
-colorscheme onedark
-
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
@@ -763,7 +729,7 @@ let g:closetag_close_shortcut = '<leader>>'
 " integer value [0|1]
 " Enables closing tags for React fragments -> <></> for all supported file types
 "
-let g:closetag_enable_react_fragment = 1
+let g:closetag_enable_react_fragment = 0
 " Disable closing tags for React fragments -> <></> for all supported file types
 "
 let g:closetag_enable_react_fragment = 0
@@ -771,8 +737,8 @@ let g:closetag_enable_react_fragment = 0
 
 
 "lightline theme
-let g:lightline = {
-      \ 'colorscheme': 'deus',
+ let g:lightline = {
+      \ 'colorscheme': 'darcula',
       \ }
 "}}}
 
@@ -794,4 +760,13 @@ set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 " Show the status on the second to last line.
 set laststatus=2
 " }}}
+
+"SMOOTH SCROLL
+
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+
+
+colorscheme dracula
 
